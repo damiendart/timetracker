@@ -1,5 +1,12 @@
 <script setup>
-  defineProps({ name: String });
+  defineProps(
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+    },
+  );
 </script>
 
 <template>
