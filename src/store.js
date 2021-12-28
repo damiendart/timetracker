@@ -12,6 +12,9 @@ const store = createStore(
       deleteTimer(context, payload) {
         return context.commit('DELETE_TIMER', payload);
       },
+      toggleTimer(context, payload) {
+        return context.commit('TOGGLE_TIMER', payload);
+      },
     },
     getters: {
       timers(state) {
@@ -23,6 +26,7 @@ const store = createStore(
         const newTimer = {
           id: payload.id,
           name: payload.name,
+          timestamps: [],
         }
 
         state.timers.push(newTimer);
@@ -35,6 +39,10 @@ const store = createStore(
           state.timers.findIndex((timer) => timer.id === payload),
           1,
         );
+      },
+      TOGGLE_TIMER(state, payload) {
+        const timerIndex = state.timers.findIndex((timer) => timer.id === payload.id);
+        state.timers[timerIndex].timestamps.push(payload.dateTime);
       }
     },
     state: {

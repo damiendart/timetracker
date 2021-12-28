@@ -1,16 +1,15 @@
+<script setup>
+  import TimerItem from './TimerItem.vue';
+</script>
+
 <script>
   export default {
-    computed: {
-      timers() {
-        return this.$store.getters.timers;
-      },
-    },
     methods: {
-      deleteTimer: function (id) {
-        this.$store.dispatch('deleteTimer', id);
-      },
       deleteAllTimers: function () {
         this.$store.dispatch('deleteAllTimers');
+      },
+      getTimers: function () {
+        return this.$store.getters.timers;
       }
     },
   };
@@ -20,13 +19,10 @@
   <div>
     <ul>
       <li
-        v-for="timer in timers"
+        v-for="timer in getTimers()"
         :key="timer.id"
       >
-        <h2>{{ timer.id }}: {{ timer.name }}</h2>
-        <button @click="deleteTimer(timer.id)">
-          Delete timer
-        </button>
+        <TimerItem :id="timer.id" />
       </li>
     </ul>
     <button @click="deleteAllTimers">
