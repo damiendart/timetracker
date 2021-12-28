@@ -1,7 +1,10 @@
 <script setup>
-  import HelloWorld from './components/HelloWorld.vue'
+  import TimerList from './components/TimerList.vue'
+  import TimerNew from "./components/TimerNew.vue";
 </script>
 
 <template>
-  <HelloWorld name="World" />
+  <h1>Time Tracker</h1>
+  <TimerList />
+  <TimerNew />
 </template>
