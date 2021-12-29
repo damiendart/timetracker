@@ -17,8 +17,17 @@
       timer() {
         return this.$store.getters.timerById(this.id);
       },
+      timerName() {
+        if (this.timer.name.length > 0) {
+          return this.timer.name;
+        }
+
+        return `Timer #${this.timer.id + 1}`;
+      }
     },
     mounted() {
+      this.updateElapsedTime();
+
       const intervalId = setInterval(this.updateElapsedTime, 1000);
 
       onUnmounted(() => clearInterval(intervalId));
@@ -47,7 +56,7 @@
 </script>
 
 <template>
-  <h2>{{ timer.name }}</h2>
+  <h2>{{ timerName }}</h2>
   <p>Total time: {{ elapsedTime }} seconds</p>
 
   <button @click="toggleTimer()">

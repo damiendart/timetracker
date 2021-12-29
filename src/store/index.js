@@ -1,5 +1,7 @@
 import { createStore } from 'vuex';
+
 import Timer from "../entities/Timer";
+import localStoragePlugin from "./plugins";
 
 const store = createStore(
   {
@@ -12,6 +14,9 @@ const store = createStore(
       },
       deleteTimer(context, payload) {
         return context.commit('DELETE_TIMER', payload);
+      },
+      initialiseStore(context, payload) {
+        return context.commit('INITIALISE_STORE', payload);
       },
       toggleTimer(context, payload) {
         return context.commit('TOGGLE_TIMER', payload);
@@ -34,10 +39,9 @@ const store = createStore(
     mutations: {
       ADD_TIMER(state, payload) {
         const newTimer = {
-          id: payload.id,
-          name: payload.name.length > 0
-            ? payload.name : `Timer #${payload.id + 1}`,
-          timestamps: [],
+          id: payload.id ?? state.lastTimerId++,
+          name: payload.name,
+          timestamps: payload.timestamps ?? [],
         }
 
         state.timers.push(newTimer);
@@ -51,6 +55,9 @@ const store = createStore(
           1,
         );
       },
+      INITIALISE_STORE(state, payload) {
+        this.replaceState(Object.assign(state, payload));
+      },
       TOGGLE_TIMER(state, payload) {
         const timerIndex = state.timers.findIndex(
           (timer) => timer.id === payload.id
@@ -58,7 +65,9 @@ const store = createStore(
         state.timers[timerIndex].timestamps.push(payload.dateTime);
       }
     },
+    plugins: [localStoragePlugin],
     state: {
+      lastTimerId: 0,
       timers: [],
     },
   },

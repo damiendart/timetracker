@@ -2,14 +2,12 @@
   export default {
     data() {
       return {
-        id: 0,
         name: '',
       };
     },
     methods: {
       addTimer: function () {
         this.$store.dispatch('addTimer', this);
-        this.id++;
         this.name ='';
       },
     },
