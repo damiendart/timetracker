@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import Timer from "./entities/Timer";
+import Timer from "../entities/Timer";
 
 const store = createStore(
   {
