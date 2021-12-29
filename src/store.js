@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import Timer from "./entities/Timer";
 
 const store = createStore(
   {
@@ -17,15 +18,25 @@ const store = createStore(
       },
     },
     getters: {
-      timers(state) {
-        return state.timers;
+      allTimers(state) {
+        return state.timers.map(
+          (props) => new Timer(props),
+        );
       },
+      timerById: (state) => (id) => {
+        const timerIndex = state.timers.findIndex(
+          (timer) => timer.id === id,
+        );
+
+        return new Timer(state.timers[timerIndex]);
+      }
     },
     mutations: {
       ADD_TIMER(state, payload) {
         const newTimer = {
           id: payload.id,
-          name: payload.name,
+          name: payload.name.length > 0
+            ? payload.name : `Timer #${payload.id + 1}`,
           timestamps: [],
         }
 
@@ -41,7 +52,9 @@ const store = createStore(
         );
       },
       TOGGLE_TIMER(state, payload) {
-        const timerIndex = state.timers.findIndex((timer) => timer.id === payload.id);
+        const timerIndex = state.timers.findIndex(
+          (timer) => timer.id === payload.id
+        );
         state.timers[timerIndex].timestamps.push(payload.dateTime);
       }
     },

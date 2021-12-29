@@ -9,7 +9,7 @@
         this.$store.dispatch('deleteAllTimers');
       },
       getTimers: function () {
-        return this.$store.getters.timers;
+        return this.$store.getters.allTimers;
       }
     },
   };

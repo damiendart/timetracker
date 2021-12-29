@@ -1,32 +1,6 @@
 <script>
   import { onUnmounted } from 'vue';
 
-  class Timer {
-    constructor(props) {
-      this.id = props.id;
-      this.name = props.name;
-      this.timestamps = props.timestamps;
-    }
-
-    getElapsedTime(currentTime) {
-      return this._getTimestampPairs().reduce(
-        (carry, pair) => carry + ((pair.length > 1) ? pair[1] : currentTime) - pair[0],
-        0,
-      );
-    }
-
-    _getTimestampPairs() {
-      let pairs = [];
-      let i = 0;
-
-      while (i < this.timestamps.length) {
-        pairs.push(this.timestamps.slice(i, i += 2));
-      }
-
-      return pairs;
-    }
-  }
-
   export default {
     props: {
       id: {
@@ -41,11 +15,7 @@
     },
     computed: {
       timer() {
-        const timerIndex = this.$store.getters.timers.findIndex(
-          (timer) => timer.id === this.id,
-        );
-
-        return new Timer(this.$store.getters.timers[timerIndex]);
+        return this.$store.getters.timerById(this.id);
       },
     },
     mounted() {
@@ -77,7 +47,7 @@
 </script>
 
 <template>
-  <h2>{{ timer.id }}: {{ timer.name }}</h2>
+  <h2>{{ timer.name }}</h2>
   <p>Total time: {{ elapsedTime }} seconds</p>
 
   <button @click="toggleTimer()">
