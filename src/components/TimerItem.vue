@@ -1,5 +1,6 @@
 <script>
   import { onUnmounted } from 'vue';
+  import formatDuration from '../utilities/formatDuration';
 
   export default {
     props: {
@@ -14,6 +15,9 @@
       };
     },
     computed: {
+      elapsedTimeFormatted() {
+        return formatDuration(this.elapsedTime)
+      },
       timer() {
         return this.$store.getters.timerById(this.id);
       },
@@ -69,7 +73,7 @@
       Edit name
     </button>
   </h2>
-  <p>Total time: {{ elapsedTime }} seconds</p>
+  <p>Total time: {{ elapsedTimeFormatted }}</p>
 
   <button @click="toggleTimer()">
     Toggle timer
