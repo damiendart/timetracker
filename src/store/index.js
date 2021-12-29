@@ -21,6 +21,9 @@ const store = createStore(
       toggleTimer(context, payload) {
         return context.commit('TOGGLE_TIMER', payload);
       },
+      updateTimerName(context, payload) {
+        return context.commit('UPDATE_TIMER_NAME', payload);
+      }
     },
     getters: {
       allTimers(state) {
@@ -63,7 +66,14 @@ const store = createStore(
           (timer) => timer.id === payload.id
         );
         state.timers[timerIndex].timestamps.push(payload.dateTime);
-      }
+      },
+      UPDATE_TIMER_NAME(state, payload) {
+        const timerIndex = state.timers.findIndex(
+          (timer) => timer.id === payload.id
+        );
+
+        state.timers[timerIndex].name = payload.name;
+      },
     },
     plugins: [localStoragePlugin],
     state: {

@@ -36,6 +36,13 @@
       deleteTimer: function () {
         this.$store.dispatch('deleteTimer', this.id);
       },
+      editTimerName: function () {
+        const name = window.prompt('Edit timer name', this.timerName);
+
+        if (name !== null) {
+          this.$store.dispatch('updateTimerName', { id: this.id, name });
+        }
+      },
       updateElapsedTime: function () {
         this.elapsedTime = Math.round(
           this.timer.getElapsedTime(Date.now()) / 1000
@@ -56,7 +63,12 @@
 </script>
 
 <template>
-  <h2>{{ timerName }}</h2>
+  <h2>
+    {{ timerName }}
+    <button @click="editTimerName()">
+      Edit name
+    </button>
+  </h2>
   <p>Total time: {{ elapsedTime }} seconds</p>
 
   <button @click="toggleTimer()">
