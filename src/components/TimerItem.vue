@@ -68,7 +68,7 @@
 
 <template>
   <h2>
-    {{ timerName }}
+    <template v-if="timer.isRunning()">&#x25B6; </template>{{ timerName }}
     <button @click="editTimerName()">
       Edit name
     </button>
@@ -76,7 +76,12 @@
   <p>Total time: {{ elapsedTimeFormatted }}</p>
 
   <button @click="toggleTimer()">
-    Toggle timer
+    <template v-if="timer.isRunning()">
+      Stop timer
+    </template>
+    <template v-else>
+      Start timer
+    </template>
   </button>
   <button @click="deleteTimer()">
     Delete timer

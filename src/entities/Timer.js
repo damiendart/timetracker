@@ -12,6 +12,11 @@ class Timer {
     );
   }
 
+  isRunning() {
+    return this.timestamps.length > 0
+      && this._getTimestampPairs().pop().length === 1;
+  }
+
   _getTimestampPairs() {
     let pairs = [];
     let i = 0;
