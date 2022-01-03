@@ -1,4 +1,8 @@
 <script setup>
+  // Copyright (c) 2022 Damien Dart, <damiendart@pobox.com>.
+  // This file is distributed under the MIT licence. For more
+  // information,please refer to the accompanying "LICENCE" file.
+
   import TimerList from './components/TimerList.vue'
   import TimerNew from "./components/TimerNew.vue";
 </script>
