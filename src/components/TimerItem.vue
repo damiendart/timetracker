@@ -42,7 +42,9 @@
     },
     methods: {
       deleteTimer: function () {
-        this.$store.dispatch('deleteTimer', this.id);
+        if (window.confirm(`Are you sure you want to delete "${this.timerName}"?`)) {
+          this.$store.dispatch('deleteTimer', this.id);
+        }
       },
       editTimerName: function () {
         const name = window.prompt('Edit timer name', this.timerName);

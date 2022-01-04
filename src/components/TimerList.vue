@@ -9,7 +9,11 @@
 
   const store = useStore();
 
-  const deleteAllTimers = () => { store.dispatch('deleteAllTimers') };
+  const deleteAllTimers = () => {
+    if (window.confirm('Are you sure you want to delete all timers?')) {
+      store.dispatch('deleteAllTimers');
+    }
+  };
   const allTimers = computed(() => store.getters.allTimers);
 </script>
 
