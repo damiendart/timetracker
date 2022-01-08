@@ -3,11 +3,12 @@
   // This file is distributed under the MIT licence. For more
   // information,please refer to the accompanying "LICENCE" file.
 
-  import TimerList from './components/TimerList.vue'
-  import TimerNew from "./components/TimerNew.vue";
+  import TimerList from './components/TimerList.vue';
+  import TimerNew from './components/TimerNew.vue';
 </script>
 
 <script>
+  // eslint-disable-next-line import/order
   import { mapGetters } from 'vuex';
 
   export default {
@@ -22,10 +23,10 @@
     watch: {
       allTimers: {
         deep: true,
-        handler(timers) {
+        handler() {
           this.updateDocumentTitle();
         },
-      }
+      },
     },
     beforeCreate() {
       const savedStore = localStorage.getItem('store');
@@ -40,7 +41,8 @@
       this.updateDocumentTitle(this.allTimers);
     },
     methods: {
-      updateDocumentTitle: function () {
+      updateDocumentTitle() {
+        // eslint-disable-next-line no-restricted-syntax
         for (const timer of this.allTimers) {
           if (timer.isRunning()) {
             document.title = `\u25B6 ${this.originalDocumentTitle}`;
@@ -50,7 +52,7 @@
 
         document.title = this.originalDocumentTitle;
       },
-    }
+    },
   };
 </script>
 

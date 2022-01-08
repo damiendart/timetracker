@@ -4,8 +4,8 @@
 
 import { createStore } from 'vuex';
 
-import Timer from "../entities/Timer";
-import localStoragePlugin from "./plugins";
+import Timer from '../entities/Timer';
+import localStoragePlugin from './plugins';
 
 const store = createStore(
   {
@@ -27,7 +27,7 @@ const store = createStore(
       },
       updateTimerName(context, payload) {
         return context.commit('UPDATE_TIMER_NAME', payload);
-      }
+      },
     },
     getters: {
       allTimers(state) {
@@ -41,19 +41,22 @@ const store = createStore(
         );
 
         return new Timer(state.timers[timerIndex]);
-      }
+      },
     },
     mutations: {
       ADD_TIMER(state, payload) {
         const newTimer = {
-          id: payload.id ?? state.lastTimerId++,
+          id: payload.id ?? state.lastTimerId,
           name: payload.name,
           timestamps: payload.timestamps ?? [],
-        }
+        };
 
         state.timers.push(newTimer);
+        // eslint-disable-next-line no-param-reassign
+        state.lastTimerId += 1;
       },
       DELETE_ALL_TIMERS(state) {
+        // eslint-disable-next-line no-param-reassign
         state.timers = [];
       },
       DELETE_TIMER(state, payload) {
@@ -67,15 +70,17 @@ const store = createStore(
       },
       TOGGLE_TIMER(state, payload) {
         const timerIndex = state.timers.findIndex(
-          (timer) => timer.id === payload.id
+          (timer) => timer.id === payload.id,
         );
+
         state.timers[timerIndex].timestamps.push(payload.dateTime);
       },
       UPDATE_TIMER_NAME(state, payload) {
         const timerIndex = state.timers.findIndex(
-          (timer) => timer.id === payload.id
+          (timer) => timer.id === payload.id,
         );
 
+        // eslint-disable-next-line no-param-reassign
         state.timers[timerIndex].name = payload.name;
       },
     },

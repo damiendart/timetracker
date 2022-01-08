@@ -2,9 +2,8 @@
 // This file is distributed under the MIT licence. For more information,
 // please refer to the accompanying "LICENCE" file.
 
-import { createApp } from 'vue'
-
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
 import store from './store';
 
 const application = createApp(App);

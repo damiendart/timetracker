@@ -10,8 +10,8 @@ const localStoragePlugin = (store) => {
       }
 
       localStorage.setItem('store', JSON.stringify(state));
-    }
+    },
   );
-}
+};
 
 export default localStoragePlugin;

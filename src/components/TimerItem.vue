@@ -11,7 +11,7 @@
       id: {
         type: Number,
         required: true,
-      }
+      },
     },
     data() {
       return {
@@ -20,7 +20,7 @@
     },
     computed: {
       elapsedTimeFormatted() {
-        return formatDuration(this.elapsedTime)
+        return formatDuration(this.elapsedTime);
       },
       timer() {
         return this.$store.getters.timerById(this.id);
@@ -31,7 +31,7 @@
         }
 
         return `Timer #${this.timer.id + 1}`;
-      }
+      },
     },
     mounted() {
       this.updateElapsedTime();
@@ -41,24 +41,24 @@
       onUnmounted(() => clearInterval(intervalId));
     },
     methods: {
-      deleteTimer: function () {
+      deleteTimer() {
         if (window.confirm(`Are you sure you want to delete "${this.timerName}"?`)) {
           this.$store.dispatch('deleteTimer', this.id);
         }
       },
-      editTimerName: function () {
+      editTimerName() {
         const name = window.prompt('Edit timer name', this.timerName);
 
         if (name !== null) {
           this.$store.dispatch('updateTimerName', { id: this.id, name });
         }
       },
-      updateElapsedTime: function () {
+      updateElapsedTime() {
         this.elapsedTime = Math.round(
-          this.timer.getElapsedTime(Date.now()) / 1000
+          this.timer.getElapsedTime(Date.now()) / 1000,
         );
       },
-      toggleTimer: function () {
+      toggleTimer() {
         this.$store.dispatch(
           'toggleTimer',
           {
@@ -67,14 +67,17 @@
           },
         );
         this.updateElapsedTime();
-      }
+      },
     },
   };
 </script>
 
 <template>
   <h2>
-    <template v-if="timer.isRunning()">&#x25B6; </template>{{ timerName }}
+    <template v-if="timer.isRunning()">
+      &#x25B6;
+    </template>
+    {{ timerName }}
     <button @click="editTimerName()">
       Edit name
     </button>

@@ -4,6 +4,12 @@
 
 module.exports = {
   extends: [
+    'airbnb-base',
+    'eslint:recommended',
     'plugin:vue/vue3-recommended',
   ],
-}
+  rules: {
+    indent: 'off',
+    'no-alert': 'off',
+  },
+};

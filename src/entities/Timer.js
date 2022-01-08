@@ -10,7 +10,7 @@ class Timer {
   }
 
   getElapsedTime(currentTime) {
-    return this._getTimestampPairs().reduce(
+    return this.getTimestampPairs().reduce(
       (carry, pair) => carry + ((pair.length > 1) ? pair[1] : currentTime) - pair[0],
       0,
     );
@@ -18,12 +18,12 @@ class Timer {
 
   isRunning() {
     return this.timestamps.length > 0
-      && this._getTimestampPairs().pop().length === 1;
+      && this.getTimestampPairs().pop().length === 1;
   }
 
-  _getTimestampPairs() {
-    let pairs = [];
+  getTimestampPairs() {
     let i = 0;
+    const pairs = [];
 
     while (i < this.timestamps.length) {
       pairs.push(this.timestamps.slice(i, i += 2));

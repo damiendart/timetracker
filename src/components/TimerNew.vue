@@ -1,5 +1,4 @@
 <script>
-
   export default {
     data() {
       return {
@@ -7,9 +6,9 @@
       };
     },
     methods: {
-      addTimer: function () {
+      addTimer() {
         this.$store.dispatch('addTimer', this);
-        this.name ='';
+        this.name = '';
       },
     },
   };

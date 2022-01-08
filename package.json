@@ -8,6 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
     "vue": "^3.2.25",
     "vuex": "^4.0.2"
   },
