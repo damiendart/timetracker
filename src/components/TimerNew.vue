@@ -15,6 +15,7 @@
 </script>
 
 <template>
+  <h2>Add a timer</h2>
   <form @submit.prevent="addTimer">
     <input
       v-model="name"

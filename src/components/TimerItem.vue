@@ -73,7 +73,7 @@
 </script>
 
 <template>
-  <h2>
+  <h3>
     <template v-if="timer.isRunning()">
       &#x25B6;
     </template>
@@ -81,7 +81,7 @@
     <button @click="editTimerName()">
       Edit name
     </button>
-  </h2>
+  </h3>
   <p>Total time: {{ elapsedTimeFormatted }}</p>
 
   <button @click="toggleTimer()">

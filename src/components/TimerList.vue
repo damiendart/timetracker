@@ -18,17 +18,16 @@
 </script>
 
 <template>
-  <div>
-    <ul>
-      <li
-        v-for="timer in allTimers"
-        :key="timer.id"
-      >
-        <TimerItem :id="timer.id" />
-      </li>
-    </ul>
-    <button @click="deleteAllTimers">
-      Delete all timers
-    </button>
-  </div>
+  <h2>Current timers</h2>
+  <ul>
+    <li
+      v-for="timer in allTimers"
+      :key="timer.id"
+    >
+      <TimerItem :id="timer.id" />
+    </li>
+  </ul>
+  <button @click="deleteAllTimers">
+    Delete all timers
+  </button>
 </template>
