@@ -11,22 +11,22 @@ const store = createStore(
   {
     actions: {
       addTimer(context, payload) {
-        return context.commit('ADD_TIMER', payload);
+        context.commit('ADD_TIMER', payload);
       },
       deleteAllTimers(context) {
-        return context.commit('DELETE_ALL_TIMERS');
+        context.commit('DELETE_ALL_TIMERS');
       },
       deleteTimer(context, payload) {
-        return context.commit('DELETE_TIMER', payload);
+        context.commit('DELETE_TIMER', payload);
       },
       initialiseStore(context, payload) {
-        return context.commit('INITIALISE_STORE', payload);
+        context.commit('INITIALISE_STORE', payload);
       },
       toggleTimer(context, payload) {
-        return context.commit('TOGGLE_TIMER', payload);
+        context.commit('TOGGLE_TIMER', payload);
       },
       updateTimerName(context, payload) {
-        return context.commit('UPDATE_TIMER_NAME', payload);
+        context.commit('UPDATE_TIMER_NAME', payload);
       },
     },
     getters: {
