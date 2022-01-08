@@ -8,7 +8,25 @@
 </script>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
+    data() {
+      return {
+        originalDocumentTitle: document.title,
+      };
+    },
+    computed: {
+      ...mapGetters(['allTimers']),
+    },
+    watch: {
+      allTimers: {
+        deep: true,
+        handler(timers) {
+          this.updateDocumentTitle();
+        },
+      }
+    },
     beforeCreate() {
       const savedStore = localStorage.getItem('store');
 
@@ -17,6 +35,21 @@
       }
 
       this.$store.commit('INITIALISE_STORE', JSON.parse(savedStore));
+    },
+    mounted() {
+      this.updateDocumentTitle(this.allTimers);
+    },
+    methods: {
+      updateDocumentTitle: function () {
+        for (const timer of this.allTimers) {
+          if (timer.isRunning()) {
+            document.title = `\u25B6 ${this.originalDocumentTitle}`;
+            return;
+          }
+        }
+
+        document.title = this.originalDocumentTitle;
+      },
     }
   };
 </script>
