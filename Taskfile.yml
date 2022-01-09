@@ -1,0 +1,65 @@
+# Copyright (C) 2022 Damien Dart, <damiendart@pobox.com>.
+# This file is distributed under the MIT licence. For more information,
+# please refer to the accompanying "LICENCE" file.
+---
+
+version: '3'
+
+output: 'prefixed'
+
+tasks:
+  default:
+    deps:
+      - task: 'ci'
+
+  ci:
+    cmds:
+      - task: 'clean'
+      - task: 'dependencies'
+      - task: 'build'
+      - task: 'lint'
+    desc: 'Run all CI-related tasks'
+
+  build:
+    cmds:
+      - 'node_modules/.bin/vite build'
+    desc: 'Build the Time Tracker app for production'
+
+  clean:
+    cmds:
+      - 'rm -fr node_modules dist'
+    desc: 'Delete all buildable files and third-party dependencies'
+
+  dependencies:
+    cmds:
+      - task: 'dependencies:javascript'
+    desc: 'Run all dependency-installing-related tasks'
+
+  dependencies:javascript:
+    cmds:
+      # <http://www.tiernok.com/posts/2019/faster-npm-installs-during-ci/>
+      - 'npm ci --prefer-offline --no-audit'
+    env:
+      CI: true
+    desc: 'Install JavaScript dependencies for building, development, and testing'
+
+  development:
+    cmds:
+      - 'node_modules/.bin/vite'
+    desc: 'Run the Vite development server'
+
+  lint:
+    cmds:
+      - task: 'lint:javascript'
+    desc: 'Run all linting-related tasks'
+
+  lint:javascript:
+    cmds:
+      - 'node_modules/.bin/eslint --ext .js,.vue src'
+    desc: 'Lint JavaScript/Vue files with ESLint'
+
+  preview:
+    cmds:
+      - task: 'build'
+      - 'node_modules/.bin/vite preview'
+    desc: 'Preview the Time Tracker production build locally'

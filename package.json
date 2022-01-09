@@ -1,12 +1,6 @@
 {
   "name": "timetracker",
   "version": "0.0.0",
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite",
-    "lint": "eslint --ext .js,.vue src",
-    "preview": "vite preview"
-  },
   "dependencies": {
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
