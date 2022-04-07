@@ -22,12 +22,23 @@ tasks:
 
   build:
     cmds:
+      - task: 'build:frontend'
+      - task: 'build:backend'
+    desc: 'Build the Time Tracker app frontend and server application'
+
+  build:frontend:
+    cmds:
       - 'node_modules/.bin/vite build'
-    desc: 'Build the Time Tracker app for production'
+    desc: 'Build the Time Tracker app frontend for production'
+
+  build:backend:
+    cmds:
+      - 'go build .'
+    desc: 'Build the Time Tracker app server application'
 
   clean:
     cmds:
-      - 'rm -fr node_modules dist'
+      - 'rm -fr dist node_modules timetracker'
     desc: 'Delete all buildable files and third-party dependencies'
 
   dependencies:
@@ -51,7 +62,34 @@ tasks:
   lint:
     cmds:
       - task: 'lint:javascript'
+      - task: 'lint:golang'
     desc: 'Run all linting-related tasks'
+
+  lint:golang:
+    cmds:
+      - task: 'lint:golang:golint'
+      - task: 'lint:golang:staticcheck'
+      - task: 'lint:golang:vet'
+
+  lint:golang:golint:
+    cmds:
+      - 'golint -set_exit_status {{catLines .GO_PACKAGES}}'
+    desc: 'Lint Go files with Golint'
+    vars: &GOLANG_LINT_VARS
+      GO_PACKAGES:
+        sh: 'go list ./...'
+
+  lint:golang:staticcheck:
+    cmds:
+      - 'staticcheck {{catLines .GO_PACKAGES}}'
+    desc: 'Lint Go files with Staticcheck'
+    vars: *GOLANG_LINT_VARS
+
+  lint:golang:vet:
+    cmds:
+      - 'go vet {{catLines .GO_PACKAGES}}'
+    desc: 'Lint Go files with Vet'
+    vars: *GOLANG_LINT_VARS
 
   lint:javascript:
     cmds:
