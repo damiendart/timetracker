@@ -18,11 +18,6 @@ jobs:
       - name: 'Check out repository'
         uses: 'actions/checkout@v2'
 
-      - name: 'Set up Go environment'
-        uses: 'actions/setup-go@v2'
-        with:
-          go-version: '1.18.x'
-
       - name: 'Set up Node environment'
         uses: 'actions/setup-node@v2'
         with:
@@ -30,11 +25,6 @@ jobs:
 
       - name: 'Install Task'
         run: 'curl -sL https://taskfile.dev/install.sh | sh'
-
-      - name: 'Install Golint and Staticcheck'
-        run: |
-          go install golang.org/x/lint/golint@latest
-          go install honnef.co/go/tools/cmd/staticcheck@latest
 
       - name: 'Ensure project builds, and run all linting and testing tasks'
         run: './bin/task ci'

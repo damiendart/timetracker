@@ -9,6 +9,9 @@ import vue from '@vitejs/plugin-vue';
 
 export default defineConfig(
   {
+    build: {
+      assetsDir: '.'
+    },
     plugins: [vue()],
   },
 );

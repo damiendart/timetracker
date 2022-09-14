@@ -1,30 +1,42 @@
 Time Tracker
 ============
 
-This project consists of:
+A simple Vue-based time tracker.
 
-- a simple Vue-based time tracker; and
-- a basic application, written in Go, that serves the time tracker.
-
-The server application is optional; you can serve the frontend however
-you want as all data used by the time tracker is stored in your
-web browser using the [Web Storage API][]'s `localStorage` mechanism.
-
-This project currently doesn't have a proper home on the Internet, so
-for now you'll have to build and run it yourself (this project uses Go,
-Node, and [Task][]):
-
-```shell
-$ task dependencies
-$ task build
-$ ./timetracker
-```
-
-Running `task build:frontend` will build just the frontend.
-
-If you do not have Task installed, the accompanying *Taskfile.yml* is
-fairly readable if you want to see what incantations are used to build
-and develop this project.
+I built this tool to help me record time spent on tasks at work without
+too much faff. There is currently no server-side component; all of your
+data is stored in your web browser using the [Web Storage API][]’s
+`localStorage` mechanism.
 
   [Web Storage API]: <https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API>
+
+
+## Building the time tracker
+
+This project uses [Vite][] to build the project, so the usual
+incantations apply.
+
+If you have [Task][] installed, you can build the project from a fresh
+copy of the source code with:
+
+``` shell
+$ task dependencies:javascript
+$ task build:frontend
+```
+
+You can also create a [redbean][]-powered server that serves the time
+tracker front-end:
+
+``` shell
+$ task dependencies
+$ task build
+$ # Start the server with "./timetracker.com"
+```
+
+Use `task --list` to see the full list of available tasks for this
+project. If you do not have Task installed, the provided *Taskfile.yml*
+is fairly readable if you want to see what commands are being used.
+
+  [Vite]: <https://vitejs.dev/>
   [Task]: <https://taskfile.dev>
+  [redbean]: <https://redbean.dev/>

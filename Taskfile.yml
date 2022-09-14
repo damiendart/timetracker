@@ -16,8 +16,9 @@ tasks:
     cmds:
       - task: 'clean'
       - task: 'dependencies'
-      - task: 'build'
+      - task: 'build:frontend'
       - task: 'lint'
+      - task: 'build:backend'
     desc: 'Run all CI-related tasks'
 
   build:
@@ -33,17 +34,19 @@ tasks:
 
   build:backend:
     cmds:
-      - 'go build .'
+      - 'zip --junk-paths --output-file timetracker.com redbean.com dist/*'
+      - 'chmod +x timetracker.com'
     desc: 'Build the Time Tracker app server application'
 
   clean:
     cmds:
-      - 'rm -fr dist node_modules timetracker'
+      - 'rm -fr .task dist node_modules redbean.com timetracker.com'
     desc: 'Delete all buildable files and third-party dependencies'
 
   dependencies:
     cmds:
       - task: 'dependencies:javascript'
+      - task: 'dependencies:redbean'
     desc: 'Run all dependency-installing-related tasks'
 
   dependencies:javascript:
@@ -54,6 +57,16 @@ tasks:
       CI: true
     desc: 'Install JavaScript dependencies for building, development, and testing'
 
+  dependencies:redbean:
+    cmds:
+      - 'curl -s https://redbean.dev/redbean-original-2.0.18.com > redbean.com'
+      - >-
+        echo "50f5b27d072c0df10eb6830707e05606cea1982771a2e9335c1e73a137b40695 redbean.com"
+        | sha256sum -c --quiet - || ( rm redbean.com; exit 1 )
+    desc: 'Download and verify the redbean executable'
+    sources:
+      - 'redbean.com'
+
   development:
     cmds:
       - 'node_modules/.bin/vite'
@@ -62,34 +75,7 @@ tasks:
   lint:
     cmds:
       - task: 'lint:javascript'
-      - task: 'lint:golang'
     desc: 'Run all linting-related tasks'
-
-  lint:golang:
-    cmds:
-      - task: 'lint:golang:golint'
-      - task: 'lint:golang:staticcheck'
-      - task: 'lint:golang:vet'
-
-  lint:golang:golint:
-    cmds:
-      - 'golint -set_exit_status {{catLines .GO_PACKAGES}}'
-    desc: 'Lint Go files with Golint'
-    vars: &GOLANG_LINT_VARS
-      GO_PACKAGES:
-        sh: 'go list ./...'
-
-  lint:golang:staticcheck:
-    cmds:
-      - 'staticcheck {{catLines .GO_PACKAGES}}'
-    desc: 'Lint Go files with Staticcheck'
-    vars: *GOLANG_LINT_VARS
-
-  lint:golang:vet:
-    cmds:
-      - 'go vet {{catLines .GO_PACKAGES}}'
-    desc: 'Lint Go files with Vet'
-    vars: *GOLANG_LINT_VARS
 
   lint:javascript:
     cmds:
