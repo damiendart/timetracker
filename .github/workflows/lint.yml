@@ -32,5 +32,5 @@ jobs:
       fail-fast: true
       matrix:
         node:
-          - '16'
           - '18'
+          - '19'
