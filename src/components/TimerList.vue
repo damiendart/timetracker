@@ -27,7 +27,10 @@
       <TimerItem :id="timer.id" />
     </li>
   </ul>
-  <button @click="deleteAllTimers">
+  <button
+    :disabled="!(allTimers.length > 0)"
+    @click="deleteAllTimers"
+  >
     Delete all timers
   </button>
 </template>
