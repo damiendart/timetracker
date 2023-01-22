@@ -59,9 +59,9 @@ tasks:
 
   dependencies:redbean:
     cmds:
-      - 'curl -s https://redbean.dev/redbean-original-2.0.19.com > redbean.com'
+      - 'curl -s https://redbean.dev/redbean-original-2.2.com > redbean.com'
       - >-
-        echo "e6fd921248927b2860e3289177742214559ba321c533f7121d20c5b95b7b427d redbean.com"
+        echo "b9b50f06a321b692219e0abcfede81553a3c457e1d8352aee61fb911162cbb48 redbean.com"
         | sha256sum -c --quiet - || ( rm redbean.com; exit 1 )
     desc: 'Download and verify the redbean executable'
     sources:
