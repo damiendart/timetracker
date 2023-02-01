@@ -24,13 +24,15 @@ $ task dependencies:javascript
 $ task build:frontend
 ```
 
-You can also create a [redbean][]-powered server that serves the time
-tracker front-end:
+As there is no server-side component, the time tracker front-end can be
+served with your server of choice. For convenience, you can create a
+[redbean][] server that serves the time tracker front-end:
 
 ``` shell
 $ task dependencies
 $ task build
 $ # Start the server with "./timetracker.com"
+$ # See <https://redbean.dev/#install> for help and troubleshooting.
 ```
 
 Use `task --list` to see the full list of available tasks for this
