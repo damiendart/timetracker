@@ -42,15 +42,15 @@
     },
     methods: {
       updateDocumentTitle() {
-        // eslint-disable-next-line no-restricted-syntax
-        for (const timer of this.allTimers) {
-          if (timer.isRunning()) {
-            document.title = `\u25B6 ${this.originalDocumentTitle}`;
-            return;
-          }
-        }
-
         document.title = this.originalDocumentTitle;
+
+        this.allTimers.forEach(
+          (timer) => {
+            if (timer.isRunning()) {
+              document.title = `\u25B6 ${this.originalDocumentTitle}`;
+            }
+          },
+        );
       },
     },
   };
