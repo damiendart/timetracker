@@ -9,12 +9,13 @@
 
   const store = useStore();
 
-  const deleteAllTimers = () => {
+  const allTimers = computed(() => store.getters.allTimers);
+
+  function deleteAllTimers() {
     if (window.confirm('Are you sure you want to delete all timers?')) {
       store.dispatch('deleteAllTimers');
     }
-  };
-  const allTimers = computed(() => store.getters.allTimers);
+  }
 </script>
 
 <template>

@@ -1,17 +1,14 @@
-<script>
-  export default {
-    data() {
-      return {
-        name: '',
-      };
-    },
-    methods: {
-      addTimer() {
-        this.$store.dispatch('addTimer', this);
-        this.name = '';
-      },
-    },
-  };
+<script setup>
+  import { ref } from 'vue';
+  import { useStore } from 'vuex';
+
+  const name = ref('');
+  const store = useStore();
+
+  function addTimer() {
+    store.dispatch('addTimer', { name: name.value });
+    name.value = '';
+  }
 </script>
 
 <template>
