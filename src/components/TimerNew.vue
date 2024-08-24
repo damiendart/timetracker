@@ -1,12 +1,12 @@
 <script setup>
   import { ref } from 'vue';
-  import { useStore } from 'vuex';
+  import useTimerStore from '../stores/timers';
 
   const name = ref('');
-  const store = useStore();
+  const store = useTimerStore();
 
   function addTimer() {
-    store.dispatch('addTimer', { name: name.value });
+    store.addTimer({ name: name.value });
     name.value = '';
   }
 </script>

@@ -5,11 +5,11 @@
 
   // eslint-disable-next-line object-curly-newline
   import { computed, onMounted, onUnmounted, ref } from 'vue';
-  import { useStore } from 'vuex';
+  import useTimerStore from '../stores/timers';
   import formatDuration from '../utilities/formatDuration';
 
   const elapsedTime = ref(0);
-  const store = useStore();
+  const store = useTimerStore();
 
   const props = defineProps(
     {
@@ -21,7 +21,7 @@
   );
 
   const elapsedTimeFormatted = computed(() => formatDuration(elapsedTime.value));
-  const timer = computed(() => store.getters.timerById(props.id));
+  const timer = computed(() => store.timerById(props.id));
   const timerName = computed(
     () => {
       if (timer.value.name.length > 0) {
@@ -34,7 +34,7 @@
 
   function deleteTimer() {
     if (window.confirm(`Are you sure you want to delete "${timerName.value}"?`)) {
-      store.dispatch('deleteTimer', props.id);
+      store.deleteTimer(props.id);
     }
   }
 
@@ -42,7 +42,7 @@
     const name = window.prompt('Edit timer name', timerName.value);
 
     if (name !== null) {
-      store.dispatch('updateTimerName', { id: props.id, name });
+      store.updateTimerName(props.id, name);
     }
   }
 
@@ -53,14 +53,7 @@
   }
 
   function toggleTimer() {
-    store.dispatch(
-      'toggleTimer',
-      {
-        id: props.id,
-        dateTime: Date.now(),
-      },
-    );
-
+    store.toggleTimer(props.id, Date.now());
     updateElapsedTime();
   }
 
