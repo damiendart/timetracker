@@ -57,7 +57,7 @@
     store.toggleTimer(props.id, Date.now());
 
     if (timer.value.isRunning()) {
-      intervalId.value = setInterval(updateElapsedTime, 1000);
+      intervalId.value = setInterval(updateElapsedTime, 100);
     } else {
       clearInterval(intervalId.value);
       intervalId.value = 0;
