@@ -4,7 +4,7 @@
   // information,please refer to the accompanying "LICENCE" file.
 
   // eslint-disable-next-line object-curly-newline
-  import { computed, onUnmounted, ref } from 'vue';
+  import { computed, onMounted, onUnmounted, ref } from 'vue';
   import useTimerStore from '../stores/timers';
   import formatDuration from '../utilities/formatDuration';
 
@@ -53,9 +53,7 @@
     );
   }
 
-  function toggleTimer() {
-    store.toggleTimer(props.id, Date.now());
-
+  function updateTimer() {
     if (timer.value.isRunning()) {
       intervalId.value = setInterval(updateElapsedTime, 100);
     } else {
@@ -66,6 +64,12 @@
     updateElapsedTime();
   }
 
+  function toggleTimer() {
+    store.toggleTimer(props.id, Date.now());
+    updateTimer();
+  }
+
+  onMounted(() => updateTimer());
   onUnmounted(() => clearInterval(intervalId.value));
 </script>
 
