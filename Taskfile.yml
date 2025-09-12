@@ -16,9 +16,8 @@ tasks:
     cmds:
       - task: 'clean'
       - task: 'dependencies'
-      - task: 'build:frontend'
       - task: 'lint'
-      - task: 'build:backend'
+      - task: 'build'
     desc: 'Run all CI-related tasks'
 
   build:
