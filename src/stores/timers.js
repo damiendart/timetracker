@@ -5,11 +5,11 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import Timer from '../entities/Timer';
+import uuidv7 from '../utilities/uuidv7';
 
 export default defineStore(
   'timer',
   () => {
-    const lastTimerId = ref(0);
     const timers = ref([]);
 
     const allTimers = computed(() => timers.value.map((props) => new Timer(props)));
@@ -19,13 +19,12 @@ export default defineStore(
 
     function addTimer(payload) {
       const timer = {
-        id: payload.id ?? lastTimerId.value,
+        id: uuidv7(),
         name: payload.name,
         timestamps: payload.timestamps ?? [],
       };
 
       timers.value.push(timer);
-      lastTimerId.value += 1;
     }
 
     function deleteTimer(id) {
@@ -56,7 +55,6 @@ export default defineStore(
       allTimers,
       deleteAllTimers,
       deleteTimer,
-      lastTimerId,
       timers,
       timerById,
       toggleTimer,

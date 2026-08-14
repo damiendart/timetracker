@@ -8,8 +8,12 @@ module.exports = {
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
   ],
+  env: {
+    'es2021': true,
+  },
   rules: {
     indent: 'off',
     'no-alert': 'off',
+    'no-bitwise': 'off',
   },
 };

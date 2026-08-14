@@ -15,7 +15,7 @@
   const props = defineProps(
     {
       id: {
-        type: Number,
+        type: String,
         required: true,
       },
     },
@@ -29,7 +29,7 @@
         return timer.value.name;
       }
 
-      return `Timer #${timer.value.id + 1}`;
+      return 'Timer';
     },
   );
 
