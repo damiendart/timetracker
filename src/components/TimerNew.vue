@@ -10,7 +10,7 @@
   const store = useTimerStore();
 
   function addTimer() {
-    store.addTimer({ name: name.value });
+    store.addTimer(name.value);
     name.value = '';
   }
 </script>

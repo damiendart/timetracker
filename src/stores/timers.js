@@ -8,46 +8,36 @@ import Timer from '../entities/Timer';
 import uuidv7 from '../utilities/uuidv7';
 
 export default defineStore(
-  'timer',
+  'timers',
   () => {
-    const timers = ref([]);
+    const timers = ref(new Map());
 
-    const allTimers = computed(() => timers.value.map((props) => new Timer(props)));
-    const timerById = computed(
-      () => (id) => new Timer(timers.value[timers.value.findIndex((timer) => timer.id === id)]),
+    const allTimers = computed(
+      () => Array.from(timers.value.entries()).map(([id, v]) => new Timer({ id, ...v })),
     );
 
-    function addTimer(payload) {
-      const timer = {
-        id: uuidv7(),
-        name: payload.name,
-        timestamps: payload.timestamps ?? [],
-      };
+    const timerById = computed(
+      () => (id) => new Timer(timers.value.get(id)),
+    );
 
-      timers.value.push(timer);
+    function addTimer(name) {
+      timers.value.set(uuidv7(), { name, timestamps: [] });
     }
 
     function deleteTimer(id) {
-      timers.value.splice(
-        timers.value.findIndex((timer) => timer.id === id),
-        1,
-      );
+      timers.value.delete(id);
     }
 
     function deleteAllTimers() {
-      timers.value = [];
+      timers.value.clear();
     }
 
     function toggleTimer(id, timestamp) {
-      const index = timers.value.findIndex((timer) => timer.id === id);
-
-      timers.value[index].timestamps.push(timestamp);
+      timers.value.get(id)?.timestamps.push(timestamp);
     }
 
     function updateTimerName(id, name) {
-      const index = timers.value.findIndex((timer) => timer.id === id);
-
-      timers.value[index].name = name;
+      timers.value.get(id).name = name;
     }
 
     return {
