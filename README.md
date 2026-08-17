@@ -20,24 +20,16 @@ If you have [Task][] installed, you can build the project from a fresh
 copy of the source code with:
 
 ``` shell
-$ task dependencies:javascript
-$ task build:frontend
-```
-
-As there is no server-side component, the time tracker front-end can be
-served with your server of choice. For convenience, you can create a
-[redbean][] server that serves the time tracker front-end:
-
-``` shell
 $ task dependencies
 $ task build
-$ # Start the server with "./timetracker.com"
-$ # See <https://redbean.dev/#install> for help and troubleshooting.
 ```
 
 Use `task --list` to see the full list of available tasks for this
 project. If you do not have Task installed, the provided *Taskfile.yml*
 is fairly readable if you want to see what commands are being used.
+
+As there is no server-side component, the time tracker front-end can be
+hosted using the server of your choice.
 
   [Vite]: <https://vitejs.dev/>
   [Task]: <https://taskfile.dev>

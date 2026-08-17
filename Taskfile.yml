@@ -22,30 +22,17 @@ tasks:
 
   build:
     cmds:
-      - task: 'build:frontend'
-      - task: 'build:backend'
-    desc: 'Build the Time Tracker app frontend and server application'
-
-  build:frontend:
-    cmds:
       - 'node_modules/.bin/vite build'
-    desc: 'Build the Time Tracker app frontend for production'
-
-  build:backend:
-    cmds:
-      - 'zip --junk-paths --output-file timetracker.com redbean.com dist/*'
-      - 'chmod +x timetracker.com'
-    desc: 'Build the Time Tracker app server application'
+    desc: 'Build the Time Tracker app frontend for production environments'
 
   clean:
     cmds:
-      - 'rm -fr .task dist node_modules redbean.com timetracker.com'
+      - 'rm -fr .task dist node_modules'
     desc: 'Delete all buildable files and third-party dependencies'
 
   dependencies:
     cmds:
       - task: 'dependencies:javascript'
-      - task: 'dependencies:redbean'
     desc: 'Run all dependency-installing-related tasks'
 
   dependencies:javascript:
@@ -55,16 +42,6 @@ tasks:
     env:
       CI: true
     desc: 'Install JavaScript dependencies for building, development, and testing'
-
-  dependencies:redbean:
-    cmds:
-      - 'curl -s https://redbean.dev/redbean-original-2.2.com > redbean.com'
-      - >-
-        echo "b9b50f06a321b692219e0abcfede81553a3c457e1d8352aee61fb911162cbb48 redbean.com"
-        | sha256sum -c --quiet - || ( rm redbean.com; exit 1 )
-    desc: 'Download and verify the redbean executable'
-    sources:
-      - 'redbean.com'
 
   development:
     cmds:
