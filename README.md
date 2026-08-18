@@ -28,9 +28,16 @@ Use `task --list` to see the full list of available tasks for this
 project. If you do not have Task installed, the provided *Taskfile.yml*
 is fairly readable if you want to see what commands are being used.
 
-As there is no server-side component, the time tracker front-end can be
-hosted using the server of your choice.
+As there is no server-side component, the Time Tracker front-end can be
+hosted using the server of your choice. An example *Dockerfile* is
+provided which will build the Tracker front-end and serve it using the
+[BusyBox httpd server][]:
+
+``` shell
+$ docker build -t timetracker .
+$ docker run -it -p 3000:3000 timetracker:latest
+```
 
   [Vite]: <https://vitejs.dev/>
   [Task]: <https://taskfile.dev>
-  [redbean]: <https://redbean.dev/>
+  [BusyBox httpd server]: <https://github.com/vda-linux/busybox_mirror/blob/master/networking/httpd.c>
